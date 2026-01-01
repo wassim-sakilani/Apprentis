@@ -15,7 +15,7 @@ class Apprenti(models.Model):
     matricule = fields.Char(string="Matricule" , readonly=True
                             ,copy=False,default=lambda self:_('Nouveau')) 
     #Numéro de Contrat
-    num_contrat = fields.Integer(string="Numéro de Contrat",required=True ,tracking=True )
+    num_contrat = fields.Char(string="Numéro de Contrat",required=True ,tracking=True )
     nom = fields.Char(string="Nom", required=True,tracking=True)
     prenom = fields.Char(string="Prénom", required=True,tracking=True)
     #Date de naissance 
@@ -77,7 +77,7 @@ class Apprenti(models.Model):
             vals['matricule'] = self.env['ir.sequence'].next_by_code('apprenti') or _('Nouveau') 
         return super(Apprenti,self).create(vals)
     
-    def action_open_semestre(self):
+    def action_add_semestre(self):
         self.ensure_one()
         return {
             'type': 'ir.actions.act_window',
@@ -91,6 +91,17 @@ class Apprenti(models.Model):
                 'form_view_initial_mode': 'edit',
                 'apprenti_readonly': True, 
             }
+        }
+    
+    def action_voir_semestres(self):
+        self.ensure_one()
+        return {
+            'type': 'ir.actions.act_window',
+            'name': 'Voir Semestres',
+            'res_model': 'semestre',
+            'view_mode': 'tree',
+            'target': 'current',
+            'domain': [('apprenti_id', '=', self.id)],
         }
     
     def name_get(self):

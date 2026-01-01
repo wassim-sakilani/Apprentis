@@ -164,10 +164,16 @@
                     <widget name="web_ribbon" title="Terminé" bg_color="bg-danger"
                     attrs="{'invisible' : [('state' , '=','pas_encore'),('state','=','en_cours')]}" /> -->
                     <div class="oe_button_box" name="button_box">
-                        <button name="action_open_semestre" type="object"
+                        <button name="action_add_semestre" type="object"
                             class="oe_stat_button" icon="fa-plus">
                             <div class="o_stat_info">
-                                <span class="o_stat_text">Semestre</span>
+                                <span class="o_stat_text">Ajouter Semestre</span>
+                            </div>
+                        </button>
+                        <button name="action_voir_semestres" type="object"
+                            class="oe_stat_button" icon="fa-list">
+                            <div class="o_stat_info">
+                                <span class="o_stat_text">voir Semestres</span>
                             </div>
                         </button>
                     </div>
@@ -201,15 +207,15 @@
                         </group>
                         <group string="Document">
                             <field name="num_contrat" />
-                            <field name="pv_installation" />
                             <field name="contrat" />
+                            <field name="pv_installation" />
                         </group>
                     </group>
 
                     <notebook>
                         <page name="semestre_ids" string="Les Semestres">
                             <field name="semestre_ids">
-                                <tree>
+                                <tree  default_order="semestre_type desc">
                                     <field name="semestre_type" />
                                     <field name="debut_semestre" />
                                     <field name="fin_semestre" />
